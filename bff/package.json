@@ -1,0 +1,33 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "engines": {
+    "node": "8.11.4",
+    "npm": "5.6.0"
+  },
+  "scripts": {
+    "start": "cross-env NODE_ENV=production node index.js",
+    "server": "nodemon index.js",
+    "client": "npm run start --prefix ../marvel_poc_ui",
+    "build": "npm run build --prefix ../marvel_poc_ui",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "deploy": "npm run build && npm run start",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix ../marvel_poc_ui && npm run build --prefix ../marvel_poc_ui"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "body-parser": "^1.18.3",
+    "concurrently": "^4.0.1",
+    "cookie-session": "^2.0.0-beta.3",
+    "cross-env": "^5.2.0",
+    "dotenv": "^8.0.0",
+    "express": "^4.16.3",
+    "lodash": "^4.5.0",
+    "nodemon": "^1.18.4",
+    "path-parser": "^4.2.0"
+  }
+}
