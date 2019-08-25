@@ -1,11 +1,11 @@
 const express = require("express");
 const bodyParser = require('body-parser');
-const keys = require("./config/keys");
 
 const app = express();
 app.use(bodyParser.json());
 
 //Require routes here
+require('./routes/apiEndpoints')(app);
 
 //On production server static files
 if (process.env.NODE_ENV === "production") {
@@ -19,4 +19,4 @@ if (process.env.NODE_ENV === "production") {
 }
 
 const PORT = process.env.PORT || 5000;
-app.listen();
+app.listen(PORT);
