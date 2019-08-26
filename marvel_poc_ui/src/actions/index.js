@@ -1,3 +1,4 @@
+import axios from 'axios';
 import {
     FETCH_HEROES,
     FETCH_HEROE
