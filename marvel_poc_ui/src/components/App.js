@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
-import { BrowserRouter, Route } from 'react-router-dom';
-import Axios from 'axios';
-import Header from './Header';
+import React, { Component } from "react";
+import { BrowserRouter, Route } from "react-router-dom";
+import Header from "./Header";
+import Footer from './Footer';
 
 class App extends Component {
   // componentDidMount() {
@@ -10,13 +10,17 @@ class App extends Component {
   // }
 
   render() {
-      return (
-          <div className="container" >
-
-                      <Header />
-
+    return (
+      <div className="container" >
+        <BrowserRouter>
+          <div>
+            <Header />
+            
+            <Footer />
           </div>
-      );
+        </BrowserRouter>
+      </div>
+    );
   }
 }
 
