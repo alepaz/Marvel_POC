@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from 'react-redux';
 import { fetchHeroes } from '../actions';
+import '../css/landing.css';
 
 class Landing extends Component {
   componentDidMount() {
@@ -8,16 +9,15 @@ class Landing extends Component {
   }
 
   renderHeroes() {
-    console.log(this.props.heroes);
     try{
       return this.props.heroes.data.results.map( heroe => {
         return (
           <div className="card col s3">
             <div className="card-image waves-effect waves-block waves-light">
-              <img className="activator" src={heroe.thumbnail.path+"."+heroe.thumbnail.extension} />
+              <img className="activator hero-image" src={heroe.thumbnail.path+"."+heroe.thumbnail.extension} />
             </div>
             <div className="card-content">
-              <span className="card-title activator grey-text text-darken-4">
+              <span className="activator grey-text text-darken-4">
                 {heroe.name}<i className="material-icons right">more_vert</i>
               </span>
             </div>
