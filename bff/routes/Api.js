@@ -65,14 +65,14 @@ module.exports = app => {
     }
   });
 
-  app.get("/api/comics/", async (req, res) => {
+  app.get("/api/stories/", async (req, res) => {
     const { ts, hash, API_URL } = createValues();
     const offset = req.query.offset ? req.query.offset : 0;
     const filter = req.query.filter;
     const filterType = req.query.filterType;
 
     try {
-      const comics = await Axios.get(`${API_URL}comics`, {
+      const comics = await Axios.get(`${API_URL}stories`, {
         params: {
           ts: ts,
           apikey: MARVEL_PUBLIC_KEY,
