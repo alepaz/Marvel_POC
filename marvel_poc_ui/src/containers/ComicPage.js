@@ -12,7 +12,7 @@ import Paginator from '../components/Paginator';
 class ComicPage extends Component {
   static getDerivedStateFromProps(nextProps) {
     const { comics } = nextProps;
-    if (comics.pagination.total && comics.pagination.limit)
+    if (comics && comics.pagination && comics.pagination.total && comics.pagination.limit)
       return { pageCount: comics.pagination.total / comics.pagination.limit };
 
     return null;

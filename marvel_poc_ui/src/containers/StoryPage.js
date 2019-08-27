@@ -11,9 +11,9 @@ import Paginator from '../components/Paginator';
 
 class StoryPage extends Component {
   static getDerivedStateFromProps(nextProps) {
-    const { comics } = nextProps;
-    if (comics.pagination.total && comics.pagination.limit)
-      return { pageCount: comics.pagination.total / comics.pagination.limit };
+    const { stories } = nextProps;
+    if (stories && stories.pagination && stories.pagination.total && stories.pagination.limit)
+      return { pageCount: stories.pagination.total / stories.pagination.limit };
 
     return null;
   }

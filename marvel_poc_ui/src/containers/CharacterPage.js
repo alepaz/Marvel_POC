@@ -13,7 +13,7 @@ import Paginator from '../components/Paginator';
 class CharacterPage extends Component {
   static getDerivedStateFromProps(nextProps) {
     const { heroes } = nextProps;
-    if (heroes.pagination.total && heroes.pagination.limit)
+    if (heroes && heroes.pagination && heroes.pagination.total && heroes.pagination.limit)
       return { pageCount: heroes.pagination.total / heroes.pagination.limit };
 
     return null;
