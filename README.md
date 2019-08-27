@@ -6,9 +6,11 @@ Tool consuming Marvel's API to display heroes, comics and stories
 
 ## 👋 Intro
 [Link on Heroku](https://poc-marvel.herokuapp.com/)
+
 This project uses a backend and frontend layout
-BFF: -Nodejs server with Express, this app serves the static files for the UI and is an intermediate to retrieve data from Marvel API, looking to don't expose the secret API key on the frontend
-UI: -App using react, redux, on production this app will be served by BFF, that's why we are not going to need to deal with CORS or JWT to simulate this on development We have an HTTP proxy middleware to recognize the endpoints of the BFF on the same domain/port. 
+**BFF**: -Nodejs server with Express, this app serves the static files for the UI and is an intermediate to retrieve data from Marvel API, looking to don't expose the secret API key on the frontend.
+
+**UI**: -App using react, redux, on production this app will be served by BFF, that's why we are not going to need to deal with CORS or JWT to simulate this on development We have an HTTP proxy middleware to recognize the endpoints of the BFF on the same domain/port. 
 
 ## 🚀 Getting Started
 
