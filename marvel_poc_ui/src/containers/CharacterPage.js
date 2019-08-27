@@ -1,30 +1,62 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import ReactPaginate from 'react-paginate';
 import HeroCard from '../components/HeroCard';
 import { fetchHeroes } from '../actions';
 import {
+  getErrorMsg,
   getHeroes,
   getIsLoading,
-  getErrorMsg,
+  getPaginationData,
 } from '../selectors/heroesSelectors';
 
 class CharacterPage extends Component {
-  componentDidMount() {
-    this.props.fetchHeroes();
+  static getDerivedStateFromProps(nextProps) {
+    const { heroes } = nextProps;
+    if (heroes.pagination.total && heroes.pagination.limit)
+      return { pageCount: heroes.pagination.total / heroes.pagination.limit };
+
+    return null;
   }
+
+  state = { pageCount: 0 };
+
+  componentDidMount() {
+    const { fetchHeroes } = this.props;
+    fetchHeroes();
+  }
+
+  handlePageClick = data => {
+    const selected = data.selected;
+    const { heroes, fetchHeroes } = this.props;
+    const offset = Math.ceil(selected * heroes.pagination.limit);
+
+    fetchHeroes(offset);
+  };
 
   render() {
     const { heroes } = this.props;
+    const { pageCount } = this.state;
     return (
-      <div className="row">
-        {heroes.isLoading ? (
-          <p>Loading...</p>
-        ) : heroes.results ? (
-          heroes.results.map(hero => <HeroCard {...hero} key={hero.id} />)
-        ) : (
-          <p>There aren't any character to display</p>
-        )}
-      </div>
+      <React.Fragment>
+        <div className="row">
+          {heroes.isLoading ? (
+            <p>Loading...</p>
+          ) : heroes.results ? (
+            heroes.results.map(hero => <HeroCard {...hero} key={hero.id} />)
+          ) : (
+            <p>There aren't any character to display</p>
+          )}
+        </div>
+        <ReactPaginate
+          pageCount={pageCount}
+          onPageChange={this.handlePageClick}
+          breakClassName={'break-me'}
+          containerClassName={'pagination'}
+          subContainerClassName={'pages pagination'}
+          activeClassName={'active'}
+        />
+      </React.Fragment>
     );
   }
 }
@@ -33,6 +65,7 @@ const mapStateToProps = state => ({
   heroes: {
     errorMsg: getErrorMsg(state),
     isLoading: getIsLoading(state),
+    pagination: getPaginationData(state),
     results: getHeroes(state),
   },
 });

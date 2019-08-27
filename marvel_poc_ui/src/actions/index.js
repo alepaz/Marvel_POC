@@ -11,7 +11,7 @@ import {
   FETCH_STORIES,
 } from './types';
 
-export const fetchHeroes = offset => async dispatch => {
+export const fetchHeroes = (offset = 0) => async dispatch => {
   dispatch({ type: FETCH_HEROES });
   try {
     const res = await axios.get('/api/characters/', {
