@@ -8,7 +8,7 @@ class Header extends Component {
     } = this.props;
     return (
       <nav>
-        <div className="nav-wrapper">
+        <div className="nav-wrapper" style={{ backgroundColor: "#ED1D24" }}>
           <div className="left brand-logo" style={{ margin: "0 10px" }}>
             Marvel Test
           </div>

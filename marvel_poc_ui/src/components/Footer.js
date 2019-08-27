@@ -6,7 +6,7 @@ class Footer extends Component {
         const date = new Date();
         //console.log(this.props);
         return (
-            <footer className="page-footer">
+            <footer className="page-footer" style={{ backgroundColor: "#ED1D24" }}>
             <div className="container">
               <div className="row">
                 <div className="col l6 s12">
