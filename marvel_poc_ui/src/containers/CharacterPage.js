@@ -1,8 +1,8 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import { fetchHeroes } from "../actions";
-import "../css/landing.css";
-import HeroCard from "./HeroCard";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { fetchHeroes } from '../actions';
+import '../css/landing.css';
+import HeroCard from '../components/HeroCard';
 
 class CharacterPage extends Component {
   componentDidMount() {
@@ -14,7 +14,7 @@ class CharacterPage extends Component {
     return (
       <div className="row">
         {heroes && heroes.data && heroes.data.results ? (
-          heroes.data.results.map(hero => <HeroCard {...hero} />)
+          heroes.data.results.map(hero => <HeroCard {...hero} key={hero.id} />)
         ) : (
           <p>There aren't any character to display</p>
         )}

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { fetchComics } from "../actions";
-import ComicCard from "./ComicCard";
+import ComicCard from "../components/ComicCard";
 
 class ComicPage extends Component {
   componentDidMount() {

@@ -1,11 +1,11 @@
-import React from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import CharacterPage from "./CharacterPage";
-import ComicPage from "./ComicPage";
-import Footer from "./Footer";
-import Header from "./Header";
-import NotFoundPage from "./NotFoundPage";
-import StoryPage from "./StoryPage";
+import React from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import CharacterPage from '../containers/CharacterPage';
+import ComicPage from '../containers/ComicPage';
+import Footer from './Footer';
+import Header from './Header';
+import NotFoundPage from './NotFoundPage';
+import StoryPage from '../containers/StoryPage';
 
 function App() {
   return (

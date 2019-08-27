@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { fetchStories } from "../actions";
-import StoryCard from "./StoryCard";
+import StoryCard from "../components/StoryCard";
 
 class StoryPage extends Component {
   componentDidMount() {
