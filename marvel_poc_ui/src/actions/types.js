@@ -1,5 +1,7 @@
 export const FETCH_COMIC = 'fetch_comic';
 export const FETCH_COMICS = 'fetch_comics';
+export const FETCH_COMICS_FAILURE = 'fetch_comics_failure';
+export const FETCH_COMICS_SUCCESS = 'fetch_comics_success';
 export const FETCH_HEROE = 'fetch_hero';
 export const FETCH_HEROES = 'fetch_heroes';
 export const FETCH_HEROES_FAILURE = 'fetch_heroes_failure';

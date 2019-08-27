@@ -1,7 +1,12 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import { fetchComics } from "../actions";
-import ComicCard from "../components/ComicCard";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { fetchComics } from '../actions';
+import ComicCard from '../components/ComicCard';
+import {
+  getComics,
+  getIsLoading,
+  getErrorMsg,
+} from '../selectors/comicsSelectors';
 
 class ComicPage extends Component {
   componentDidMount() {
@@ -13,9 +18,10 @@ class ComicPage extends Component {
     console.log(comics);
     return (
       <div className="row">
-       
-        {comics && comics.data && comics.data.results ? (
-          comics.data.results.map(comic => <ComicCard {...comic} key={comic.id} />)
+        {comics.isLoading ? (
+          <p>Loading...</p>
+        ) : comics.results ? (
+          comics.results.map(comic => <ComicCard {...comic} key={comic.id} />)
         ) : (
           <p>There aren't any character to display</p>
         )}
@@ -24,9 +30,13 @@ class ComicPage extends Component {
   }
 }
 
-function mapStateToProps({ comics }) {
-  return { comics };
-}
+const mapStateToProps = state => ({
+  comics: {
+    errorMsg: getErrorMsg(state),
+    isLoading: getIsLoading(state),
+    results: getComics(state),
+  },
+});
 
 export default connect(
   mapStateToProps,

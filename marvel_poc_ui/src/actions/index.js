@@ -1,5 +1,7 @@
 import axios from 'axios';
 import {
+  FETCH_COMICS_FAILURE,
+  FETCH_COMICS_SUCCESS,
   FETCH_COMICS,
   FETCH_HEROES_FAILURE,
   FETCH_HEROES_SUCCESS,
@@ -22,12 +24,17 @@ export const fetchHeroes = offset => async dispatch => {
 };
 
 export const fetchComics = offset => async dispatch => {
-  const res = await axios.get('/api/comics/', {
-    params: {
-      offset,
-    },
-  });
-  dispatch({ type: FETCH_COMICS, payload: res.data });
+  dispatch({ type: FETCH_COMICS });
+  try {
+    const res = await axios.get('/api/comics/', {
+      params: {
+        offset,
+      },
+    });
+    dispatch({ type: FETCH_COMICS_SUCCESS, payload: res.data.data });
+  } catch (err) {
+    dispatch({ type: FETCH_COMICS_FAILURE, payload: err.message });
+  }
 };
 
 export const fetchStories = offset => async dispatch => {
