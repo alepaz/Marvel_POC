@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { fetchHeroes } from "../actions";
 import "../css/landing.css";
 
-class Landing extends Component {
+class CharacterPage extends Component {
   componentDidMount() {
     this.props.fetchHeroes();
   }
@@ -81,4 +81,4 @@ function mapStateToProps({ heroes }) {
 export default connect(
   mapStateToProps,
   { fetchHeroes }
-)(Landing);
+)(CharacterPage);

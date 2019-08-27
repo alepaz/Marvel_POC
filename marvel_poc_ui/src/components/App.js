@@ -1,28 +1,29 @@
-import React, { Component } from "react";
-import { BrowserRouter, Route } from "react-router-dom";
+import React from "react";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import CharacterPage from "./CharacterPage";
+import ComicPage from "./ComicPage";
+import Footer from "./Footer";
 import Header from "./Header";
-import Landing from './Landing';
-import Footer from './Footer';
+import NotFoundPage from "./NotFoundPage";
+import StoryPage from "./StoryPage";
 
-class App extends Component {
-  // componentDidMount() {
-  //     /* Call Actions Creator, those are imported by the export statement */
-  //     //this.props.fetchUser();
-  // }
-
-  render() {
-    return (
-      <div className="container" >
-        <BrowserRouter>
-          <div>
-            <Header />
-            <Route exact path="/" component={Landing} />
-            <Footer />
-          </div>
-        </BrowserRouter>
-      </div>
-    );
-  }
+function App() {
+  return (
+    <div className="container">
+      <Router>
+        <React.Fragment>
+          <Header />
+          <Switch>
+            <Route path="/comics" component={ComicPage} />
+            <Route path="/stories" component={StoryPage} />
+            <Route path="/" exact component={CharacterPage} />
+            <Route path="*" component={NotFoundPage} />
+          </Switch>
+          <Footer />
+        </React.Fragment>
+      </Router>
+    </div>
+  );
 }
 
 export default App;
