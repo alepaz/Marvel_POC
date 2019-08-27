@@ -2,7 +2,6 @@ import React from "react";
 import PropTypes from "prop-types";
 
 function HeroCard({ id, comics, thumbnail, name, description, stories }) {
-  console.log("rendering Hero", name);
   return (
     <div className="card col s6 m4" key={id}>
       <div className="card-image waves-effect waves-block waves-light">
