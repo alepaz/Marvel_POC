@@ -5,7 +5,7 @@ const app = express();
 app.use(bodyParser.json());
 
 //Require routes here
-require('./routes/apiEndpoints')(app);
+require('./routes/Api')(app);
 
 //On production server static files
 if (process.env.NODE_ENV === "production") {
