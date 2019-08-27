@@ -1,7 +1,12 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import { fetchStories } from "../actions";
-import StoryCard from "../components/StoryCard";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { fetchStories } from '../actions';
+import StoryCard from '../components/StoryCard';
+import {
+  getStories,
+  getIsLoading,
+  getErrorMsg,
+} from '../selectors/storiesSelectors';
 
 class StoryPage extends Component {
   componentDidMount() {
@@ -10,12 +15,12 @@ class StoryPage extends Component {
 
   render() {
     const { stories } = this.props;
-    console.log(stories);
     return (
       <div className="row">
-       
-        {stories && stories.data && stories.data.results ? (
-          stories.data.results.map(story => <StoryCard {...story} key={story.id} />)
+        {stories.isLoading ? (
+          <p>Loading...</p>
+        ) : stories.results ? (
+          stories.results.map(story => <StoryCard {...story} key={story.id} />)
         ) : (
           <p>There aren't any Story to display</p>
         )}
@@ -24,9 +29,13 @@ class StoryPage extends Component {
   }
 }
 
-function mapStateToProps({ stories }) {
-  return { stories };
-}
+const mapStateToProps = state => ({
+  stories: {
+    errorMsg: getErrorMsg(state),
+    isLoading: getIsLoading(state),
+    results: getStories(state),
+  },
+});
 
 export default connect(
   mapStateToProps,

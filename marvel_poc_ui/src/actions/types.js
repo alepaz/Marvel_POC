@@ -7,4 +7,6 @@ export const FETCH_HEROES = 'fetch_heroes';
 export const FETCH_HEROES_FAILURE = 'fetch_heroes_failure';
 export const FETCH_HEROES_SUCCESS = 'fetch_heroes_success';
 export const FETCH_STORIES = 'fetch_stories';
+export const FETCH_STORIES_FAILURE = 'fetch_stories_failure';
+export const FETCH_STORIES_SUCCESS = 'fetch_stories_success';
 export const FETCH_STORY = 'fetch_story';
