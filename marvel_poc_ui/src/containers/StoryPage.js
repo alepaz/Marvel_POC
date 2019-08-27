@@ -6,6 +6,7 @@ import {
   getStories,
   getIsLoading,
   getErrorMsg,
+  getPaginationData
 } from '../selectors/storiesSelectors';
 import Paginator from '../components/Paginator';
 
@@ -27,8 +28,8 @@ class StoryPage extends Component {
 
   handlePageClick = data => {
     const selected = data.selected;
-    const { heroes, fetchStories } = this.props;
-    const offset = Math.ceil(selected * heroes.pagination.limit);
+    const { stories, fetchStories } = this.props;
+    const offset = Math.ceil(selected * stories.pagination.limit);
 
     fetchStories(offset);
   };
@@ -59,6 +60,7 @@ const mapStateToProps = state => ({
   stories: {
     errorMsg: getErrorMsg(state),
     isLoading: getIsLoading(state),
+    pagination: getPaginationData(state),
     results: getStories(state),
   },
 });

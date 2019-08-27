@@ -6,6 +6,7 @@ import {
   getComics,
   getIsLoading,
   getErrorMsg,
+  getPaginationData
 } from '../selectors/comicsSelectors';
 import Paginator from '../components/Paginator';
 
@@ -27,8 +28,8 @@ class ComicPage extends Component {
 
   handlePageClick = data => {
     const selected = data.selected;
-    const { heroes, fetchComics } = this.props;
-    const offset = Math.ceil(selected * heroes.pagination.limit);
+    const { comics, fetchComics } = this.props;
+    const offset = Math.ceil(selected * comics.pagination.limit);
 
     fetchComics(offset);
   };
@@ -58,6 +59,7 @@ const mapStateToProps = state => ({
   comics: {
     errorMsg: getErrorMsg(state),
     isLoading: getIsLoading(state),
+    pagination: getPaginationData(state),
     results: getComics(state),
   },
 });
