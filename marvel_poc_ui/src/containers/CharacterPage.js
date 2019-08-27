@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchHeroes } from '../actions';
-import '../css/landing.css';
 import HeroCard from '../components/HeroCard';
 
 class CharacterPage extends Component {
