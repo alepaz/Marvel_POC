@@ -18,7 +18,7 @@ export default function(state = initialState, action) {
     case FETCH_HEROES_FAILURE:
       return { ...initialState, errorMsg: action.payload };
     case FETCH_HEROES_SUCCESS:
-      return { ...initialState, isLoading: false, data: action.payload };
+      return { ...initialState, data: action.payload };
     case FETCH_HEROE:
       return action.payload;
     default:

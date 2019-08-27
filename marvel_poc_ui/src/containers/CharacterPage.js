@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import ReactPaginate from 'react-paginate';
 import HeroCard from '../components/HeroCard';
 import { fetchHeroes } from '../actions';
 import {
@@ -9,6 +8,7 @@ import {
   getIsLoading,
   getPaginationData,
 } from '../selectors/heroesSelectors';
+import Paginator from '../components/Paginator';
 
 class CharacterPage extends Component {
   static getDerivedStateFromProps(nextProps) {
@@ -48,14 +48,7 @@ class CharacterPage extends Component {
             <p>There aren't any character to display</p>
           )}
         </div>
-        <ReactPaginate
-          pageCount={pageCount}
-          onPageChange={this.handlePageClick}
-          breakClassName={'break-me'}
-          containerClassName={'pagination'}
-          subContainerClassName={'pages pagination'}
-          activeClassName={'active'}
-        />
+        <Paginator pageCount={pageCount} onPageChange={this.handlePageClick} />
       </React.Fragment>
     );
   }
