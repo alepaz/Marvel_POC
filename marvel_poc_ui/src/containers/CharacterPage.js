@@ -1,7 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchHeroes } from '../actions';
 import HeroCard from '../components/HeroCard';
+import { fetchHeroes } from '../actions';
+import {
+  getHeroes,
+  getIsLoading,
+  getErrorMsg,
+} from '../selectors/heroesSelectors';
 
 class CharacterPage extends Component {
   componentDidMount() {
@@ -12,8 +17,10 @@ class CharacterPage extends Component {
     const { heroes } = this.props;
     return (
       <div className="row">
-        {heroes && heroes.data && heroes.data.results ? (
-          heroes.data.results.map(hero => <HeroCard {...hero} key={hero.id} />)
+        {heroes.isLoading ? (
+          <p>Loading...</p>
+        ) : heroes.results ? (
+          heroes.results.map(hero => <HeroCard {...hero} key={hero.id} />)
         ) : (
           <p>There aren't any character to display</p>
         )}
@@ -22,9 +29,13 @@ class CharacterPage extends Component {
   }
 }
 
-function mapStateToProps({ heroes }) {
-  return { heroes };
-}
+const mapStateToProps = state => ({
+  heroes: {
+    errorMsg: getErrorMsg(state),
+    isLoading: getIsLoading(state),
+    results: getHeroes(state),
+  },
+});
 
 export default connect(
   mapStateToProps,

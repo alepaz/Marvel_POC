@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-function ComicCard({ id, thumbnail, title, description, issueNumber, stories, characters }) {
+function ComicCard({ id, thumbnail, title, description, stories, characters }) {
   return (
     <div className="card col s6 m4" key={id}>
       <div className="card-image waves-effect waves-block waves-light">
