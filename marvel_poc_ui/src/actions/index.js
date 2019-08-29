@@ -1,4 +1,3 @@
-import axios from 'axios';
 import {
   FETCH_COMICS_FAILURE,
   FETCH_COMICS_SUCCESS,
@@ -11,6 +10,8 @@ import {
   FETCH_STORIES,
 } from './types';
 import characterServices from '../services/characterServices';
+import comicServices from '../services/comicServices';
+import storyServices from '../services/storyServices';
 
 export const fetchHeroes = (offset = 0) => async dispatch => {
   dispatch({ type: FETCH_HEROES });
@@ -25,12 +26,8 @@ export const fetchHeroes = (offset = 0) => async dispatch => {
 export const fetchComics = offset => async dispatch => {
   dispatch({ type: FETCH_COMICS });
   try {
-    const res = await axios.get('/api/comics/', {
-      params: {
-        offset,
-      },
-    });
-    dispatch({ type: FETCH_COMICS_SUCCESS, payload: res.data.data });
+    const comics = await comicServices.getComics({ offset });
+    dispatch({ type: FETCH_COMICS_SUCCESS, payload: comics.data });
   } catch (err) {
     dispatch({ type: FETCH_COMICS_FAILURE, payload: err.message });
   }
@@ -39,13 +36,8 @@ export const fetchComics = offset => async dispatch => {
 export const fetchStories = offset => async dispatch => {
   dispatch({ type: FETCH_STORIES });
   try {
-    const res = await axios.get('/api/stories/', {
-      params: {
-        offset,
-      },
-    });
-
-    dispatch({ type: FETCH_STORIES_SUCCESS, payload: res.data.data });
+    const stories = await storyServices.getStories({ offset });
+    dispatch({ type: FETCH_STORIES_SUCCESS, payload: stories.data });
   } catch (err) {
     dispatch({ type: FETCH_STORIES_FAILURE, payload: err.message });
   }
