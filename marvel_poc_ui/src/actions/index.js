@@ -10,16 +10,13 @@ import {
   FETCH_STORIES_SUCCESS,
   FETCH_STORIES,
 } from './types';
+import characterServices from '../services/characterServices';
 
 export const fetchHeroes = (offset = 0) => async dispatch => {
   dispatch({ type: FETCH_HEROES });
   try {
-    const res = await axios.get('/api/characters/', {
-      params: {
-        offset,
-      },
-    });
-    dispatch({ type: FETCH_HEROES_SUCCESS, payload: res.data.data });
+    const characters = await characterServices.getCharacters(offset); 
+    dispatch({ type: FETCH_HEROES_SUCCESS, payload: characters.data });
   } catch (err) {
     dispatch({ type: FETCH_HEROES_FAILURE, payload: err.message });
   }
