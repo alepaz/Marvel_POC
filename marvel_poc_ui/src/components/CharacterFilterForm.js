@@ -1,44 +1,67 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
+import AsyncSelectable from './AsyncSelectable';
+import characterServices from '../services/characterServices';
 
 class CharacterFilterForm extends Component {
-  state = { inputValue: "" };
+  state = { inputValue: '', filter: [], filterBy: 'name' };
+
+  handleRadioChange = e => {
+    this.setState({ filterBy: e.target.value });
+  };
 
   render() {
+    const { filter, filterBy } = this.state;
     return (
       <div className="row">
-        <label className="control-label">
-          Name
-        </label>
-        <input
-          type="text"
-          id="filterByName"
-          className="form-control"
-        />
         <form action="#">
-          <p>
+          <div>
+            <AsyncSelectable
+              service={characterServices.getCharacters}
+              mapping={({ id, name }) => ({ value: id, label: name })}
+              value={filter}
+              onChange={value => {
+                console.log('Changed', value);
+                this.setState({ filter: value });
+              }}
+            />
+          </div>
+          <div>
             <label>
-              <input name="group1" type="radio" />
+              <input
+                name="filterGroup"
+                type="radio"
+                value="name"
+                checked={filterBy === 'name'}
+                onChange={this.handleRadioChange}
+              />
               <span>Filter by name</span>
             </label>
-          </p>
-          <p>
+          </div>
+
+          <div>
             <label>
-              <input name="group1" type="radio" />
+              <input
+                name="filterGroup"
+                type="radio"
+                value="comic"
+                checked={filterBy === 'comic'}
+                onChange={this.handleRadioChange}
+              />
               <span>Filter by comic name</span>
             </label>
-          </p>
-          <p>
+          </div>
+          <div>
             <label>
-              <input name="group1" type="radio" />
+              <input
+                name="filterGroup"
+                type="radio"
+                value="story"
+                checked={filterBy === 'story'}
+                onChange={this.handleRadioChange}
+              />
               <span>Filter by story name</span>
             </label>
-          </p>
-          <p>
-            <label>
-              <input name="group1" type="radio" />
-              <span>Filter by specific name</span>
-            </label>
-          </p>
+          </div>
         </form>
       </div>
     );
