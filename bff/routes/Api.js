@@ -57,6 +57,27 @@ module.exports = app => {
     }
   });
 
+  app.get("/api/characters/:id", async (req, res) => {
+    const { ts, hash, API_URL } = createValues();
+    const { id } = req.params;
+
+    try {
+      let params = {
+        ts: ts,
+        apikey: MARVEL_PUBLIC_KEY,
+        hash: hash,
+      };
+
+      const characters = await Axios.get(`${API_URL}characters/${encodeURIComponent(id)}`, {
+        params
+      });
+      res.send(characters.data);
+    } catch (err) {
+      console.log("Something happened", err);
+      res.send("Error");
+    }
+  });
+
   app.get("/api/comics/", async (req, res) => {
     const { ts, hash, API_URL } = createValues();
     const { offset = 0, filter, filterBy } = req.query;
