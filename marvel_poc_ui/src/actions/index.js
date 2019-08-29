@@ -15,7 +15,7 @@ import characterServices from '../services/characterServices';
 export const fetchHeroes = (offset = 0) => async dispatch => {
   dispatch({ type: FETCH_HEROES });
   try {
-    const characters = await characterServices.getCharacters(offset); 
+    const characters = await characterServices.getCharacters({ offset });
     dispatch({ type: FETCH_HEROES_SUCCESS, payload: characters.data });
   } catch (err) {
     dispatch({ type: FETCH_HEROES_FAILURE, payload: err.message });
