@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 function HeroCard({ id, comics, thumbnail, name, description, stories }) {
   return (
-    <div className="card col s6 m4" key={id}>
+    <div className="card col s12 m4" key={id}>
       <div className="card-image waves-effect waves-block waves-light">
         <img
           className="activator hero-image"
