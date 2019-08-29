@@ -13,10 +13,23 @@ import characterServices from '../services/characterServices';
 import comicServices from '../services/comicServices';
 import storyServices from '../services/storyServices';
 
-export const fetchHeroes = (offset = 0) => async dispatch => {
+export const fetchHeroes = (
+  { offset, filter, filterBy } = { offset: 0 }
+) => async dispatch => {
   dispatch({ type: FETCH_HEROES });
   try {
-    const characters = await characterServices.getCharacters({ offset });
+    let characters;
+    if (filterBy && filter) {
+      if (filterBy === 'name')
+        characters = await characterServices.getCharacterById(filter);
+      else {
+        const params = { offset, filterBy, filter };
+        characters = await characterServices.getCharacters(params);
+      }
+    } else {
+      const params = { offset };
+      characters = await characterServices.getCharacters(params);
+    }
     dispatch({ type: FETCH_HEROES_SUCCESS, payload: characters.data });
   } catch (err) {
     dispatch({ type: FETCH_HEROES_FAILURE, payload: err.message });

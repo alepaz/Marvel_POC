@@ -9,6 +9,7 @@ import {
   getPaginationData,
 } from '../selectors/heroesSelectors';
 import Paginator from '../components/Paginator';
+import CharacterFilter from '../components/CharacterFilterForm';
 
 class CharacterPage extends Component {
   static getDerivedStateFromProps(nextProps) {
@@ -39,6 +40,7 @@ class CharacterPage extends Component {
     const { pageCount } = this.state;
     return (
       <React.Fragment>
+        <CharacterFilter />
         <div className="row">
           {heroes.isLoading ? (
             <p>Loading...</p>

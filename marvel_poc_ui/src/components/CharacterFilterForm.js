@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import AsyncSelectable from './AsyncSelectable';
+import { fetchHeroes } from '../actions';
 import characterServices from '../services/characterServices';
 import comicServices from '../services/comicServices';
 import storyServices from '../services/storyServices';
@@ -22,8 +24,19 @@ const selectableParams = {
 class CharacterFilterForm extends Component {
   state = { inputValue: '', filter: [], filterBy: 'name' };
 
-  handleRadioChange = e => {
+  onRadioChange = e => {
     this.setState({ filterBy: e.target.value, filter: [] });
+  };
+
+  onSelectChange = values => {
+    const { fetchHeroes } = this.props;
+    this.setState({ filter: values }, () => {
+      const { filter, filterBy } = this.state;
+      fetchHeroes({
+        filterBy: filterBy,
+        filter: filter.map(({ value }) => value).join(','),
+      });
+    });
   };
 
   render() {
@@ -37,10 +50,7 @@ class CharacterFilterForm extends Component {
               service={service}
               mapping={mapping}
               value={filter}
-              onChange={value => {
-                console.log('Changed', value);
-                this.setState({ filter: value });
-              }}
+              onChange={this.onSelectChange}
             />
           </div>
           <div>
@@ -50,7 +60,7 @@ class CharacterFilterForm extends Component {
                 type="radio"
                 value="name"
                 checked={filterBy === 'name'}
-                onChange={this.handleRadioChange}
+                onChange={this.onRadioChange}
               />
               <span>Filter by name</span>
             </label>
@@ -63,7 +73,7 @@ class CharacterFilterForm extends Component {
                 type="radio"
                 value="comic"
                 checked={filterBy === 'comic'}
-                onChange={this.handleRadioChange}
+                onChange={this.onRadioChange}
               />
               <span>Filter by comic name</span>
             </label>
@@ -75,7 +85,7 @@ class CharacterFilterForm extends Component {
                 type="radio"
                 value="story"
                 checked={filterBy === 'story'}
-                onChange={this.handleRadioChange}
+                onChange={this.onRadioChange}
               />
               <span>Filter by story name</span>
             </label>
@@ -86,4 +96,9 @@ class CharacterFilterForm extends Component {
   }
 }
 
-export default CharacterFilterForm;
+const mapStateToProps = state => ({});
+
+export default connect(
+  mapStateToProps,
+  { fetchHeroes }
+)(CharacterFilterForm);
