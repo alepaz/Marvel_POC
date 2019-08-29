@@ -21,19 +21,34 @@ module.exports = app => {
 
   app.get("/api/characters/", async (req, res) => {
     const { ts, hash, API_URL } = createValues();
-    const offset = req.query.offset ? req.query.offset : 0;
-    const filter = req.query.filter;
-    const filterType = req.query.filterType;
+    const { offset = 0, filter, filterType } = req.query;
 
     try {
+      let params = {
+        ts: ts,
+        apikey: MARVEL_PUBLIC_KEY,
+        hash: hash,
+        offset: offset,
+        limit: "12"
+      };
+      switch (filterType) {
+        case "byName":
+          params = { ...params, nameStartsWith: filter };
+          break;
+        case "byComic":
+          // this should be comic id and it can be separated by comma
+          params = { ...params, comics: filter };
+          break;
+        case "byStory":
+          // this should be story id and it can be separated by comma
+          params = { ...params, stories: filter };
+          break;
+        default:
+          break;
+      }
+
       const characters = await Axios.get(`${API_URL}characters`, {
-        params: {
-          ts: ts,
-          apikey: MARVEL_PUBLIC_KEY,
-          hash: hash,
-          offset: offset,
-          limit: "12"
-        }
+        params
       });
       res.send(characters.data);
     } catch (err) {
