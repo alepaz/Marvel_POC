@@ -1,23 +1,41 @@
 import React, { Component } from 'react';
 import AsyncSelectable from './AsyncSelectable';
 import characterServices from '../services/characterServices';
+import comicServices from '../services/comicServices';
+import storyServices from '../services/storyServices';
+
+const selectableParams = {
+  name: {
+    service: characterServices.getCharacters,
+    mapping: ({ id, name }) => ({ value: id, label: name }),
+  },
+  comic: {
+    service: comicServices.getComics,
+    mapping: ({ id, title }) => ({ value: id, label: title }),
+  },
+  story: {
+    service: storyServices.getStories,
+    mapping: ({ id, title }) => ({ value: id, label: title }),
+  },
+};
 
 class CharacterFilterForm extends Component {
   state = { inputValue: '', filter: [], filterBy: 'name' };
 
   handleRadioChange = e => {
-    this.setState({ filterBy: e.target.value });
+    this.setState({ filterBy: e.target.value, filter: [] });
   };
 
   render() {
     const { filter, filterBy } = this.state;
+    const { mapping, service } = selectableParams[filterBy];
     return (
       <div className="row">
         <form action="#">
           <div>
             <AsyncSelectable
-              service={characterServices.getCharacters}
-              mapping={({ id, name }) => ({ value: id, label: name })}
+              service={service}
+              mapping={mapping}
               value={filter}
               onChange={value => {
                 console.log('Changed', value);
