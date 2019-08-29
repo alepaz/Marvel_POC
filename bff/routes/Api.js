@@ -21,7 +21,7 @@ module.exports = app => {
 
   app.get("/api/characters/", async (req, res) => {
     const { ts, hash, API_URL } = createValues();
-    const { offset = 0, filter, filterType } = req.query;
+    const { offset = 0, filter, filterBy } = req.query;
 
     try {
       let params = {
@@ -31,15 +31,15 @@ module.exports = app => {
         offset: offset,
         limit: "12"
       };
-      switch (filterType) {
-        case "byName":
+      switch (filterBy) {
+        case "name":
           params = { ...params, nameStartsWith: filter };
           break;
-        case "byComic":
+        case "comic":
           // this should be comic id and it can be separated by comma
           params = { ...params, comics: filter };
           break;
-        case "byStory":
+        case "story":
           // this should be story id and it can be separated by comma
           params = { ...params, stories: filter };
           break;
