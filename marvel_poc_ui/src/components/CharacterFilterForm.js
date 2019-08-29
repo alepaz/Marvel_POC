@@ -68,7 +68,7 @@ class CharacterFilterForm extends Component {
               <span>Filter by comic name</span>
             </label>
           </div>
-          <div>
+          {/* <div>
             <label>
               <input
                 name="filterGroup"
@@ -79,7 +79,7 @@ class CharacterFilterForm extends Component {
               />
               <span>Filter by story name</span>
             </label>
-          </div>
+          </div> */}
         </form>
       </div>
     );
