@@ -31,10 +31,10 @@ class CharacterFilterForm extends Component {
   onSwitchChange = () => {
     const { fetchHeroes } = this.props;
     const { orderBy } = this.state;
-    this.setState({ orderBy: orderBy === "name" ? "-name" : "name" }, () =>{
+    this.setState({ orderBy: orderBy === 'name' ? '-name' : 'name' }, () => {
       const { orderBy } = this.state;
       fetchHeroes({
-        orderBy: orderBy
+        orderBy: orderBy,
         //I need the offset
       });
     });
@@ -44,11 +44,17 @@ class CharacterFilterForm extends Component {
     const { fetchHeroes } = this.props;
     this.setState({ filter: values }, () => {
       const { filter, filterBy, orderBy } = this.state;
-      fetchHeroes({
-        filterBy: filterBy,
-        filter: filter.map(({ value }) => value).join(','),
-        orderBy: orderBy
-      });
+      if (filter) {
+        fetchHeroes({
+          filterBy: filterBy,
+          filter: filter.map(({ value }) => value).join(','),
+          orderBy: orderBy,
+        });
+      } else {
+        fetchHeroes({
+          orderBy: orderBy,
+        });
+      }
     });
   };
 
@@ -110,7 +116,7 @@ class CharacterFilterForm extends Component {
               <div className="switch switch-filter">
                 <label>
                   Ascending
-                  <input type="checkbox" onChange={ this.onSwitchChange } />
+                  <input type="checkbox" onChange={this.onSwitchChange} />
                   <span className="lever"></span>
                   Descending
                 </label>

@@ -14,7 +14,12 @@ import CharacterFilter from '../components/CharacterFilterForm';
 class CharacterPage extends Component {
   static getDerivedStateFromProps(nextProps) {
     const { heroes } = nextProps;
-    if (heroes && heroes.pagination && heroes.pagination.total && heroes.pagination.limit)
+    if (
+      heroes &&
+      heroes.pagination &&
+      heroes.pagination.total &&
+      heroes.pagination.limit
+    )
       return { pageCount: heroes.pagination.total / heroes.pagination.limit };
 
     return null;
@@ -31,7 +36,7 @@ class CharacterPage extends Component {
     const selected = data.selected;
     const { heroes, fetchHeroes } = this.props;
     const offset = Math.ceil(selected * heroes.pagination.limit);
-    fetchHeroes({offset});
+    fetchHeroes({ offset });
   };
 
   render() {
@@ -39,7 +44,7 @@ class CharacterPage extends Component {
     const { pageCount } = this.state;
     return (
       <React.Fragment>
-        <CharacterFilter />
+          <CharacterFilter />
         <div className="row">
           {heroes.isLoading ? (
             <p>Loading...</p>
