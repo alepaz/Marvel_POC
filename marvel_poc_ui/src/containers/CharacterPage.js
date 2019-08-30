@@ -31,8 +31,7 @@ class CharacterPage extends Component {
     const selected = data.selected;
     const { heroes, fetchHeroes } = this.props;
     const offset = Math.ceil(selected * heroes.pagination.limit);
-
-    fetchHeroes(offset);
+    fetchHeroes({offset});
   };
 
   render() {

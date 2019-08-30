@@ -51,7 +51,7 @@ function AsyncSelectable({ mapping, name, onChange, value, service, rest }) {
 
 AsyncSelectable.propTypes = {
   mapping: PropTypes.func,
-  name: PropTypes.string.isRequired,
+  name: PropTypes.string,
   onChange: PropTypes.func,
   service: PropTypes.func.isRequired, // it returns a Promise
   value: PropTypes.arrayOf(
