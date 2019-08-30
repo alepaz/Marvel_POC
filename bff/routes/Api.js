@@ -21,15 +21,15 @@ module.exports = app => {
 
   app.get("/api/characters/", async (req, res) => {
     const { ts, hash, API_URL } = createValues();
-    const { offset = 0, filter, filterBy } = req.query;
-
+    const { offset = 0, filter, filterBy, orderBy } = req.query;
     try {
       let params = {
         ts: ts,
         apikey: MARVEL_PUBLIC_KEY,
         hash: hash,
         offset: offset,
-        limit: "12"
+        limit: "12",
+        orderBy: orderBy ? orderBy : "name"
       };
       switch (filterBy) {
         case "name":
