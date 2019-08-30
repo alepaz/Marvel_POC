@@ -25,7 +25,7 @@ class CharacterPage extends Component {
     return null;
   }
 
-  state = { pageCount: 0 };
+  state = { pageCount: 0, orderBy: 'name', offset: 0 };
 
   componentDidMount() {
     const { fetchHeroes } = this.props;
@@ -36,15 +36,21 @@ class CharacterPage extends Component {
     const selected = data.selected;
     const { heroes, fetchHeroes } = this.props;
     const offset = Math.ceil(selected * heroes.pagination.limit);
-    fetchHeroes({ offset });
+    const { orderBy } = this.state;
+    this.setState({ offset: offset });
+    fetchHeroes({ offset, orderBy });
   };
+
+  handleOrderByChange = value => {
+    this.setState({ orderBy: value });
+  }
 
   render() {
     const { heroes } = this.props;
-    const { pageCount } = this.state;
+    const { pageCount, offset } = this.state;
     return (
       <React.Fragment>
-          <CharacterFilter pageCount={pageCount} />
+          <CharacterFilter offset={offset} onOrderByChange={this.handleOrderByChange} />
         <div className="row">
           {heroes.isLoading ? (
             <p>Loading...</p>
