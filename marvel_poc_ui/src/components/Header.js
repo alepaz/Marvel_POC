@@ -9,7 +9,7 @@ class Header extends Component {
     return (
       <nav>
         <div className="nav-wrapper" style={{ backgroundColor: "#ED1D24" }}>
-          <div className="left brand-logo" style={{ margin: "0 10px" }}>
+          <div className="left brand-logo hide-on-med-and-down" style={{ margin: "0 10px" }}>
             Marvel Test
           </div>
           <ul className="right">
