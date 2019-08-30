@@ -44,7 +44,7 @@ class CharacterPage extends Component {
     const { pageCount } = this.state;
     return (
       <React.Fragment>
-          <CharacterFilter />
+          <CharacterFilter pageCount={pageCount} />
         <div className="row">
           {heroes.isLoading ? (
             <p>Loading...</p>

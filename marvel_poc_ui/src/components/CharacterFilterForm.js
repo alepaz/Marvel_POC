@@ -29,19 +29,19 @@ class CharacterFilterForm extends Component {
   };
 
   onSwitchChange = () => {
-    const { fetchHeroes } = this.props;
+    const { fetchHeroes, pageCount } = this.props;
     const { orderBy } = this.state;
     this.setState({ orderBy: orderBy === 'name' ? '-name' : 'name' }, () => {
       const { orderBy } = this.state;
       fetchHeroes({
-        orderBy: orderBy,
-        //I need the offset
+        offset: pageCount,
+        orderBy: orderBy
       });
     });
   };
 
   onSelectChange = values => {
-    const { fetchHeroes } = this.props;
+    const { fetchHeroes, pageCount } = this.props;
     this.setState({ filter: values }, () => {
       const { filter, filterBy, orderBy } = this.state;
       if (filter) {
@@ -52,7 +52,8 @@ class CharacterFilterForm extends Component {
         });
       } else {
         fetchHeroes({
-          orderBy: orderBy,
+          offset: pageCount,
+          orderBy: orderBy
         });
       }
     });
