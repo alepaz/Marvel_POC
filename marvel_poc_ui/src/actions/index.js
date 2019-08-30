@@ -14,7 +14,7 @@ import comicServices from '../services/comicServices';
 import storyServices from '../services/storyServices';
 
 export const fetchHeroes = (
-  { offset, filter, filterBy } = { offset: 0 }
+  { offset, filter, filterBy, orderBy } = { offset: 0 }
 ) => async dispatch => {
   dispatch({ type: FETCH_HEROES });
   try {
@@ -23,11 +23,11 @@ export const fetchHeroes = (
       if (filterBy === 'name')
         characters = await characterServices.getCharacterById(filter);
       else {
-        const params = { offset, filterBy, filter };
+        const params = { offset, filterBy, filter, orderBy };
         characters = await characterServices.getCharacters(params);
       }
     } else {
-      const params = { offset };
+      const params = { offset, orderBy };
       characters = await characterServices.getCharacters(params);
     }
     dispatch({ type: FETCH_HEROES_SUCCESS, payload: characters.data });

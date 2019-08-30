@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-const getCharacters = async ({ offset = 0, filterBy, filter }) => {
-  const params = filterBy && filter ? { offset, filterBy, filter } : { offset };
+const getCharacters = async ({ offset = 0, filterBy, filter, orderBy }) => {
+  const params = filterBy && filter ? { offset, filterBy, filter, orderBy } : { offset, orderBy };
   const res = await axios.get('/api/characters/', {
     params,
   });
