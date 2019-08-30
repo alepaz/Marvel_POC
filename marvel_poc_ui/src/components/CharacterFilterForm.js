@@ -22,19 +22,32 @@ const selectableParams = {
 };
 
 class CharacterFilterForm extends Component {
-  state = { inputValue: '', filter: [], filterBy: 'name' };
+  state = { inputValue: '', filter: [], filterBy: 'name', orderBy: 'name' };
 
   onRadioChange = e => {
     this.setState({ filterBy: e.target.value, filter: [] });
   };
 
+  onSwitchChange = () => {
+    const { fetchHeroes } = this.props;
+    const { orderBy } = this.state;
+    this.setState({ orderBy: orderBy === "name" ? "-name" : "name" }, () =>{
+      const { orderBy } = this.state;
+      fetchHeroes({
+        orderBy: orderBy
+        //I need the offset
+      });
+    });
+  };
+
   onSelectChange = values => {
     const { fetchHeroes } = this.props;
     this.setState({ filter: values }, () => {
-      const { filter, filterBy } = this.state;
+      const { filter, filterBy, orderBy } = this.state;
       fetchHeroes({
         filterBy: filterBy,
         filter: filter.map(({ value }) => value).join(','),
+        orderBy: orderBy
       });
     });
   };
@@ -45,7 +58,7 @@ class CharacterFilterForm extends Component {
     return (
       <div className="row">
         <form action="#">
-          <div>
+          <div className="col s12">
             <AsyncSelectable
               service={service}
               mapping={mapping}
@@ -53,32 +66,33 @@ class CharacterFilterForm extends Component {
               onChange={this.onSelectChange}
             />
           </div>
-          <div>
-            <label>
-              <input
-                name="filterGroup"
-                type="radio"
-                value="name"
-                checked={filterBy === 'name'}
-                onChange={this.onRadioChange}
-              />
-              <span>Filter by name</span>
-            </label>
-          </div>
+          <div className="col s12 m6">
+            <div>
+              <label>
+                <input
+                  name="filterGroup"
+                  type="radio"
+                  value="name"
+                  checked={filterBy === 'name'}
+                  onChange={this.onRadioChange}
+                />
+                <span>Filter by name</span>
+              </label>
+            </div>
 
-          <div>
-            <label>
-              <input
-                name="filterGroup"
-                type="radio"
-                value="comic"
-                checked={filterBy === 'comic'}
-                onChange={this.onRadioChange}
-              />
-              <span>Filter by comic name</span>
-            </label>
-          </div>
-          {/* <div>
+            <div>
+              <label>
+                <input
+                  name="filterGroup"
+                  type="radio"
+                  value="comic"
+                  checked={filterBy === 'comic'}
+                  onChange={this.onRadioChange}
+                />
+                <span>Filter by comic name</span>
+              </label>
+            </div>
+            {/* <div>
             <label>
               <input
                 name="filterGroup"
@@ -90,6 +104,19 @@ class CharacterFilterForm extends Component {
               <span>Filter by story name</span>
             </label>
           </div> */}
+          </div>
+          <div className="col s12 m6">
+            <div className="row">
+              <div className="switch switch-filter">
+                <label>
+                  Ascending
+                  <input type="checkbox" onChange={ this.onSwitchChange } />
+                  <span className="lever"></span>
+                  Descending
+                </label>
+              </div>
+            </div>
+          </div>
         </form>
       </div>
     );
